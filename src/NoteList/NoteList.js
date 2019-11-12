@@ -17,7 +17,7 @@ class NotesList extends Component {
     };
 
     currentFolderName = () => {
-        let folder = this.context.folders.find(itm => itm.id === this.props.folderId)
+        let folder = this.context.folders.find(itm => itm.id === parseInt(this.props.folderId));
          if (folder) {
              return folder.name
          }   
