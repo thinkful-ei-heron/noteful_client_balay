@@ -20,6 +20,16 @@ class App extends Component {
         fetch(`${config.API_ENDPOINT}/api/notes`).then(res => res.json()).then(data => this.setState({notes: data}));
     }
 
+    deleteFolder = (id) => {
+        fetch(`${config.API_ENDPOINT}/api/folders/${id}`, {
+            method: 'DELETE'
+        })
+        .then(() => this.setState({
+            folders: this.state.folders.filter(folder => folder.id !== id),
+            notes: this.state.notes.filter(note => note.folderid !== id)
+        }))
+    };
+
     deleteNote = (id) => {
         fetch(`${config.API_ENDPOINT}/api/notes/${id}`, {
             method: 'DELETE'
@@ -63,6 +73,7 @@ class App extends Component {
                 notes: this.state.notes,
                 folders: this.state.folders,
                 addFolder: false,
+                deleteFolder: this.deleteFolder,
                 deleteNote: this.deleteNote,
                 handleFolderSubmit: this.handleFolderSubmit,
                 handleNoteSubmit: this.handleNoteSubmit,

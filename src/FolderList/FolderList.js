@@ -37,8 +37,8 @@ class FolderList extends Component {
         return (
             <>
                 {this.context.folders.map((folder) => {
-                    return (<div key={folder.id} className={(folder.id === this.props.id) ? 'background' : ''}><Link
-                        key={folder.id} to={'/folders/' + folder.id} onClick={this.toggleNoteAdding}>{folder.name}</Link></div>);
+                    return (<div key={folder.id}><div className={(folder.id === parseInt(this.props.id)) ? 'background' : ''}><Link
+                        key={folder.id} to={'/folders/' + folder.id} onClick={this.toggleNoteAdding}>{folder.name}</Link></div><Link to={'/'}><button className="delete_folder" type="button" onClick={() => this.context.deleteFolder(folder.id)}>Delete Folder</button></Link></div>);
                 })
                 }
                 {addFolder}

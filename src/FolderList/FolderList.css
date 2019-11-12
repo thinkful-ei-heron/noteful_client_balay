@@ -1,3 +1,7 @@
 .background {
   background-color: lightgray;
 }
+
+.delete_folder {
+  font-size: 15px;
+}
