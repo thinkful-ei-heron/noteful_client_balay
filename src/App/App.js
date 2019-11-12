@@ -7,6 +7,7 @@ import DetailedNote from "../DetailedNote/DetailedNote";
 import NotefulContext from '../NotefulContext';
 import ErrorPage from '../ErrorPage/ErrorPage'
 import Header from '../Header'
+import config from '../config';
 
 class App extends Component {
     state = {
@@ -15,19 +16,19 @@ class App extends Component {
     };
 
     componentDidMount() {
-        fetch('http://localhost:8000/api/folders').then(res => res.json()).then(data => this.setState({folders: data}));
-        fetch('http://localhost:8000/api/notes').then(res => res.json()).then(data => this.setState({notes: data}));
+        fetch(`${config.API_ENDPOINT}/api/folders`).then(res => res.json()).then(data => this.setState({folders: data}));
+        fetch(`${config.API_ENDPOINT}/api/notes`).then(res => res.json()).then(data => this.setState({notes: data}));
     }
 
     deleteNote = (id) => {
-        fetch(`http://localhost:8000/api/notes/${id}`, {
+        fetch(`${config.API_ENDPOINT}/api/notes/${id}`, {
             method: 'DELETE'
         }).then(() => this.setState({notes: this.state.notes.filter(note => note.id !== id)}));
     };
 
     handleFolderSubmit = (e, str) => {
         e.preventDefault();
-        fetch('http://localhost:8000/api/folders', {
+        fetch(`${config.API_ENDPOINT}/api/folders`, {
             method: 'POST',
             headers: {'content-type': 'application/json'},
             body: JSON.stringify({name: str})
@@ -43,7 +44,7 @@ class App extends Component {
     
     handleNoteSubmit = (e, nameStr, contentStr, folderId) => {
         e.preventDefault();
-        fetch('http://localhost:8000/api/notes', {
+        fetch(`${config.API_ENDPOINT}/api/notes`, {
             method: 'POST',
             headers: { 'content-type': 'application/json'},
             body: JSON.stringify({name: nameStr, content: contentStr, folderid: folderId, modified: new Date().toJSON()})
